@@ -1,0 +1,21 @@
+{
+  "name": "contentful-rich-text-vue-renderer",
+  "version": "1.0.0",
+  "description": "Render Contentful Rich Text field using Vue components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "contentful",
+    "richtext",
+    "rich",
+    "text",
+    "vue"
+  ],
+  "dependencies": {
+    "@contentful/rich-text-types": "^12.1.2"
+  },
+  "author": "Paramander",
+  "license": "ISC"
+}
