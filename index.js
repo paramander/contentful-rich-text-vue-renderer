@@ -60,7 +60,7 @@ const defaultNodeRenderers = {
     [BLOCKS.QUOTE]: (node, key, h, next) => (
         h('blockquote', { key }, next(node.content, key, h, next))
     ),
-    [BLOCKS.HR]: (_node, key, _h) => h('hr', { key }, {}),
+    [BLOCKS.HR]: (_node, key, h) => h('hr', { key }, {}),
     [INLINES.ASSET_HYPERLINK]: (node, key, h) =>
         defaultInline(INLINES.ASSET_HYPERLINK, node, key, h),
     [INLINES.ENTRY_HYPERLINK]: (node, key, h) =>
