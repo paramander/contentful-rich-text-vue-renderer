@@ -2,6 +2,9 @@
   "name": "contentful-rich-text-vue-renderer",
   "version": "1.0.1",
   "description": "Render Contentful Rich Text field using Vue components",
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "unpkg": "dist/index.min.js",
@@ -22,7 +25,7 @@
     "@contentful/rich-text-types": "^12.1.2"
   },
   "author": "Paramander",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "rollup": "^1.10.0",
     "rollup-plugin-buble": "^0.19.6"
