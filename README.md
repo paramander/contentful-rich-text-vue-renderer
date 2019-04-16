@@ -174,3 +174,22 @@ The `markRenderers` prop should be one of the following `MARKS` properties as de
 - `ITALIC`
 - `UNDERLINE`
 - `CODE`
+
+## Server Side Rendering
+Since this package is using the ESM module syntax, you most likely need to tranpile the package into CommonJS.
+
+### [Nuxt](https://nuxtjs.org/)
+
+You can configure Nuxt to transpile packages from your node_modules in the `nuxt.config.js` by adding it to `build.transpile` like this:
+
+```js
+// nuxt.config.js
+
+module.exports = {
+  // ...
+  build: {
+    transpile: ['contentful-rich-text-vue-renderer'],
+    // ...
+  }
+}
+```
