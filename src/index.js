@@ -72,7 +72,9 @@ const defaultNodeRenderers = {
             'a',
             {
                 key,
-                href: node.data.uri
+                attrs: {
+                  href: node.data.uri
+                }
             },
             next(node.content, key, h, next)
         )
