@@ -133,8 +133,14 @@ const document = {
   ]
 };
 
+// Example function to render an embedded entry in a RichText editor.
+// For instance, a react-router link to an entry.
+const customRenderFunction = (node, key, h) => {
+  return h('Link', { key: key, to: 'link to embedded entry' }, 'content for the <Link> component');
+};
+
 const renderNode = {
-  [BLOCKS.EMBEDDED_ENTRY]: (node, key, h) => h('custom-component', { key: key }, customRenderFunction(node, key))
+  [BLOCKS.EMBEDDED_ENTRY]: customRenderFunction
 }
 
 <template>
