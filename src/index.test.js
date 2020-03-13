@@ -13,39 +13,58 @@ const withDocument = content => {
 
 describe("RichText", () => {
   describe("MARKS", () => {
-    const document = withDocument([
-      {
-        nodeType: BLOCKS.PARAGRAPH,
-        content: [
-          {
-            nodeType: 'text',
-            value: 'Hello',
-            marks: [{ type: MARKS.BOLD }],
-          },
-          {
-            nodeType: 'text',
-            value: ' world!',
-            marks: [{ type: MARKS.ITALIC }],
-          },
-          {
-            nodeType: 'text',
-            value: 'console.log("yo");',
-            marks: [{ type: MARKS.CODE }],
-          },
-          {
-            nodeType: 'text',
-            value: 'Greetings!',
-            marks: [{ type: MARKS.UNDERLINE }],
-          }
-        ],
-      }
-    ]);
-    const rendered = mount(RichText, { propsData: { document } });
+    describe("consecutive marks", () => {
+      const document = withDocument([
+        {
+          nodeType: BLOCKS.PARAGRAPH,
+          content: [
+            {
+              nodeType: 'text',
+              value: 'Hello',
+              marks: [{ type: MARKS.BOLD }],
+            },
+            {
+              nodeType: 'text',
+              value: ' world!',
+              marks: [{ type: MARKS.ITALIC }],
+            },
+            {
+              nodeType: 'text',
+              value: 'console.log("yo");',
+              marks: [{ type: MARKS.CODE }],
+            },
+            {
+              nodeType: 'text',
+              value: 'Greetings!',
+              marks: [{ type: MARKS.UNDERLINE }],
+            }
+          ],
+        }
+      ]);
+      const rendered = mount(RichText, { propsData: { document } });
 
-    it("multimark hello world", () => {
-      expect(rendered.html()).toBe(
-        '<p><strong>Hello</strong><em> world!</em><code>console.log("yo");</code><u>Greetings!</u></p>'
-      );
+      it("renders them all in a single paragraph", () => {
+        expect(rendered.html()).toBe(
+          '<p><strong>Hello</strong><em> world!</em><code>console.log("yo");</code><u>Greetings!</u></p>'
+        );
+      });
+    });
+
+    describe("overlapping marks", () => {
+      const document = withDocument([
+        {
+          nodeType: 'text',
+          value: 'Hello',
+          marks: [{ type: MARKS.BOLD }, { type: MARKS.ITALIC }, { type: MARKS.UNDERLINE }],
+        }
+      ]);
+      const rendered = mount(RichText, { propsData: { document } });
+
+      it("renders all overlapping marks in order", () => {
+        expect(rendered.html()).toBe(
+          '<strong><em><u>Hello</u></em></strong>'
+        );
+      });
     });
   });
 

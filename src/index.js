@@ -17,10 +17,10 @@ const defaultInline = (type, node, key, h) => {
 };
 
 const defaultMarkRenderers = {
-    [MARKS.BOLD]: (text, key, h) => h('strong', { key }, text),
-    [MARKS.ITALIC]: (text, key, h) => h('em', { key }, text),
-    [MARKS.UNDERLINE]: (text, key, h) => h('u', { key }, text),
-    [MARKS.CODE]: (text, key, h) => h('code', { key }, text)
+    [MARKS.BOLD]: (children, key, h) => h('strong', { key }, children),
+    [MARKS.ITALIC]: (children, key, h) => h('em', { key }, children),
+    [MARKS.UNDERLINE]: (children, key, h) => h('u', { key }, children),
+    [MARKS.CODE]: (children, key, h) => h('code', { key }, children)
 };
 
 const defaultNodeRenderers = {
@@ -80,13 +80,14 @@ const defaultNodeRenderers = {
         )
     },
     text: ({ marks, value }, key, h, markRenderer) => {
-        return marks.length
-            ? marks.reduce(
-                  (aggregate, mark, i) =>
-                      markRenderer[mark.type](aggregate, `${key}-${i}`, h),
-                  value
-              )
-            : value;
+        if (!marks.length) {
+            return value;
+        }
+
+        const marksReversed = [...marks].reverse();
+        return marksReversed.reduce((aggregate, mark, i) => (
+            markRenderer[mark.type]([aggregate], `${key}-${i}`, h)
+        ), value)
     }
 };
 
