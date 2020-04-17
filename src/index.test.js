@@ -387,8 +387,27 @@ describe("RichText", () => {
 
     describe("overrides", () => {
       const nodeRenderers = {
-        [INLINES.EMBEDDED_ENTRY]: (node, key, h) => h('a', { key: key, attrs: { href: `/entry/${node.data.target.sys.id}` } }, 'go to')
-      }
+        [INLINES.EMBEDDED_ENTRY]: (node, key, h) => h('a', { key: key, attrs: { href: `/entry/${node.data.target.sys.id}` } }, 'go to'),
+        break: (_node, key, h) => h('br', key, {}),
+        [BLOCKS.PARAGRAPH]: (node, key, h, next) => {
+          node.content = node.content.map(childNode => {
+            if (childNode.nodeType === 'text') {
+              const splittedValue = childNode.value.split("\n");
+              return splittedValue.reduce((aggregate, v, i) => (
+                [
+                  ...aggregate,
+                  { ...childNode, value: v },
+                  { nodeType: 'break', key: `${key}-br-${i}` }
+                ]
+              ), []).slice(0, -1);
+            }
+
+            return childNode;
+          }).flat();
+
+          return h('p', { key }, next(node.content, key, h, next));
+        }
+      };
 
       describe("EMBEDDED_ENTRY", () => {
         const document = withDocument([
@@ -406,12 +425,33 @@ describe("RichText", () => {
           }
         ]);
 
-        const rendered = mount(RichText, { propsData: { document, nodeRenderers }});
+        const rendered = mount(RichText, { propsData: { document, nodeRenderers } });
 
         it("it has an <a> to the entry id", () => {
           expect(rendered.html()).toBe('<a href="/entry/9mpxT4zsRi6Iwukey8KeM">go to</a>');
         });
       });
+
+      describe("newline to br", () => {
+        const document = withDocument([
+          {
+            nodeType: BLOCKS.PARAGRAPH,
+            content: [
+              {
+                nodeType: 'text',
+                value: "hello\n\nworld",
+                marks: [],
+                data: {},
+              },
+            ],
+          },
+        ]);
+        const rendered = mount(RichText, { propsData: { document, nodeRenderers } });
+
+        it("splits hello world with breaks", () => {
+          expect(rendered.html()).toBe('<p>hello<br><br>world</p>');
+        });
+      })
     });
   });
 });
