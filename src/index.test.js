@@ -390,7 +390,7 @@ describe("RichText", () => {
         [INLINES.EMBEDDED_ENTRY]: (node, key, h) => h('a', { key: key, attrs: { href: `/entry/${node.data.target.sys.id}` } }, 'go to'),
         break: (_node, key, h) => h('br', key, {}),
         [BLOCKS.PARAGRAPH]: (node, key, h, next) => {
-          node.content = node.content.map(childNode => {
+          const nodeContentWithNewlineBr = node.content.map(childNode => {
             if (childNode.nodeType === 'text') {
               const splittedValue = childNode.value.split("\n");
               return splittedValue.reduce((aggregate, v, i) => (
@@ -403,7 +403,9 @@ describe("RichText", () => {
             }
 
             return childNode;
-          }).flat();
+          });
+
+          node.content = [].concat.apply([], nodeContentWithNewlineBr);
 
           return h('p', { key }, next(node.content, key, h, next));
         }
