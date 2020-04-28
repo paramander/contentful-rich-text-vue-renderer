@@ -18,7 +18,8 @@ yarn add contentful-rich-text-vue-renderer
 
 ## Usage
 
-```javascript
+```html
+<script>
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
 const document = {
@@ -37,13 +38,23 @@ const document = {
   ],
 };
 
+export default {
+  data() {
+    return {
+      document
+    };
+  }
+}
+</script>
+
 <template>
     <RichTextRenderer :document="document" />
 </template>
-// Will render in Vue as -> <p :key="key">Hello world!</p>
+<!-- Will render in Vue as -> <p :key="key">Hello world!</p> -->
 ```
 
-```javascript
+```html
+<script>
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
 const document = {
@@ -67,15 +78,24 @@ const document = {
   ],
 };
 
+export default {
+  data() {
+    return {
+      document
+    };
+  }
+}
+</script>
+
 <template>
     <RichTextRenderer :document="document" />
 </template>
-// Will render in Vue as -> <p :key="key"><b :key="key">Hello</b><u :key="key"> world!</u></p>
 ```
 
 You can also pass custom renderers for both marks and nodes as an optional parameter like so:
 
-```javascript
+```html
+<script>
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
@@ -100,24 +120,38 @@ const document = {
   ]
 };
 
-const renderMarks = {
-  [MARKS.BOLD]: (text, key, h) => h('custom-bold', { key: key }, text)
-};
+export default {
+  data() {
+    return {
+      document
+    };
+  },
 
-const renderNodes = {
-  [BLOCKS.PARAGRAPH]: (node, key, h, next) => h('custom-paragraph', { key: key }, next(node.content, key, h, next))
-};
+  methods: {
+    renderMarks() {
+      return {
+        [MARKS.BOLD]: (text, key, h) => h('custom-bold', { key: key }, text)
+      };
+    },
+    renderNodes() {
+      return {
+        [BLOCKS.PARAGRAPH]: (node, key, h, next) => h('custom-paragraph', { key: key }, next(node.content, key, h, next))
+      }
+    };
+  }
+}
+</script>
 
 <template>
     <RichTextRenderer :document="document" :nodeRenderers="renderNodes" :markRenderers="renderMarks" />
 </template>
-
-// Will render in Vue as -> <custom-paragraph :key="key"><custom-bold :key="key">Hello</custom-bold><u :key="key"> world!</u></custom-paragraph>
+<!-- Will render in Vue as -> <custom-paragraph :key="key"><custom-bold :key="key">Hello</custom-bold><u :key="key"> world!</u></custom-paragraph> -->
 ```
 
 Last, but not least, you can pass a custom rendering component for an embedded entry:
 
-```javascript
+```html
+<script>
 import { BLOCKS } from '@contentful/rich-text-types';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
@@ -135,18 +169,31 @@ const document = {
 
 // Example function to render an embedded entry in a RichText editor.
 // For instance, a react-router link to an entry.
-const customRenderFunction = (node, key, h) => {
+const customEmbeddedEntry = (node, key, h) => {
   return h('Link', { key: key, to: 'link to embedded entry' }, 'content for the <Link> component');
 };
 
-const renderNode = {
-  [BLOCKS.EMBEDDED_ENTRY]: customRenderFunction
+export default {
+  data() {
+    return {
+      document
+    }
+  },
+
+  methods: {
+    renderNodes() {
+      return {
+        [BLOCKS.EMBEDDED_ENTRY]: customEmbeddedEntry
+      }
+    }
+  }
 }
+</script>
 
 <template>
     <RichTextRenderer :document="document" :nodeRenderers="renderNodes" />
 </template>
-// -> <custom-component :key="key">(...)Link<'Entry'>(...)</custom-component>
+<!-- Will render as -> <custom-component :key="key">(...)Link<'Entry'>(...)</custom-component> -->
 ```
 
 The `nodeRenderers` prop should be one of the following `BLOCKS` and `INLINES` properties as defined in [`@contentful/rich-text-types`](https://www.npmjs.com/package/@contentful/rich-text-types):
