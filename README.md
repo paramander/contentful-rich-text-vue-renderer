@@ -143,7 +143,7 @@ export default {
 </script>
 
 <template>
-    <RichTextRenderer :document="document" :nodeRenderers="renderNodes" :markRenderers="renderMarks" />
+    <RichTextRenderer :document="document" :nodeRenderers="renderNodes()" :markRenderers="renderMarks()" />
 </template>
 <!-- Will render in Vue as -> <custom-paragraph :key="key"><custom-bold :key="key">Hello</custom-bold><u :key="key"> world!</u></custom-paragraph> -->
 ```
@@ -191,7 +191,7 @@ export default {
 </script>
 
 <template>
-    <RichTextRenderer :document="document" :nodeRenderers="renderNodes" />
+    <RichTextRenderer :document="document" :nodeRenderers="renderNodes()" />
 </template>
 <!-- Will render as -> <custom-component :key="key">(...)Link<'Entry'>(...)</custom-component> -->
 ```
