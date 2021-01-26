@@ -2,6 +2,8 @@
 
 Vue renderer for the Contentful rich text field type.
 
+## Version 2.x dropped support for Node 8. If you need Node 8 support, remain on 1.x!
+
 ## Installation
 
 Using [npm](http://npmjs.org/):
