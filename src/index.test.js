@@ -261,7 +261,12 @@ describe("RichText", () => {
       const rendered = mount(RichText, { propsData: { document } })
 
       it("has an <ul> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe('<ul><li>hello</li><li>world</li></ul>');
+        expect(rendered.html()).toBe(
+`<ul>
+  <li>hello</li>
+  <li>world</li>
+</ul>`
+        );
       });
     });
 
@@ -296,7 +301,12 @@ describe("RichText", () => {
       const rendered = mount(RichText, { propsData: { document } })
 
       it("has an <ol> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe('<ol><li>hello</li><li>world</li></ol>');
+        expect(rendered.html()).toBe(
+`<ol>
+  <li>hello</li>
+  <li>world</li>
+</ol>`
+        );
       });
     });
 
@@ -355,7 +365,11 @@ describe("RichText", () => {
       const rendered = mount(RichText, { propsData: { document } })
 
       it("has a <div> with <p> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<div><p>hello world</p></div>');
+        expect(rendered.html()).toBe(
+`<div>
+  <p>hello world</p>
+</div>`
+        );
       });
     });
   });
