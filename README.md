@@ -2,7 +2,13 @@
 
 Vue renderer for the Contentful rich text field type.
 
+## Version 3.x is for Vue 3 support.
+
 ## Version 2.x dropped support for Node 8. If you need Node 8 support, remain on 1.x!
+
+## Changelog
+
+See releases page for changelog of versions.
 
 ## Installation
 
