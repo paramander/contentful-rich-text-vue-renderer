@@ -1,3 +1,4 @@
+import { h } from "vue";
 import { mount } from "@vue/test-utils";
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 
@@ -41,7 +42,7 @@ describe("RichText", () => {
           ],
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } });
+      const rendered = mount(RichText, { props: { document } });
 
       it("renders them all in a single paragraph", () => {
         expect(rendered.html()).toBe(
@@ -58,7 +59,7 @@ describe("RichText", () => {
           marks: [{ type: MARKS.BOLD }, { type: MARKS.ITALIC }, { type: MARKS.UNDERLINE }],
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } });
+      const rendered = mount(RichText, { props: { document } });
 
       it("renders all overlapping marks in order", () => {
         expect(rendered.html()).toBe(
@@ -83,7 +84,7 @@ describe("RichText", () => {
           ],
         },
       ]);
-      const rendered = mount(RichText, { propsData: { document } });
+      const rendered = mount(RichText, { props: { document } });
 
       it("has a <p> with hello world", () => {
         expect(rendered.html()).toBe('<p>hello world</p>');
@@ -103,7 +104,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h1> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h1>hello world</h1>');
@@ -123,7 +124,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h2> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h2>hello world</h2>');
@@ -143,7 +144,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h3> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h3>hello world</h3>');
@@ -163,7 +164,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h4> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h4>hello world</h4>');
@@ -183,7 +184,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h5> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h5>hello world</h5>');
@@ -203,7 +204,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <h6> with 'hello world'", () => {
         expect(rendered.html()).toBe('<h6>hello world</h6>');
@@ -223,7 +224,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <li> with 'hello world'", () => {
         expect(rendered.html()).toBe('<li>hello world</li>');
@@ -258,15 +259,10 @@ describe("RichText", () => {
           ],
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <ul> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe(
-`<ul>
-  <li>hello</li>
-  <li>world</li>
-</ul>`
-        );
+        expect(rendered.html()).toBe("<ul><li>hello</li><li>world</li></ul>");
       });
     });
 
@@ -298,15 +294,10 @@ describe("RichText", () => {
           ],
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <ol> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe(
-`<ol>
-  <li>hello</li>
-  <li>world</li>
-</ol>`
-        );
+        expect(rendered.html()).toBe("<ol><li>hello</li><li>world</li></ol>");
       });
     });
 
@@ -317,7 +308,7 @@ describe("RichText", () => {
           content: []
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has an <hr>", () => {
         expect(rendered.html()).toBe('<hr>');
@@ -337,7 +328,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has a <blockquote> with 'hello world'", () => {
         expect(rendered.html()).toBe('<blockquote>hello world</blockquote>');
@@ -362,14 +353,10 @@ describe("RichText", () => {
           ]
         }
       ]);
-      const rendered = mount(RichText, { propsData: { document } })
+      const rendered = mount(RichText, { props: { document } })
 
       it("has a <div> with <p> with 'hello world'", () => {
-        expect(rendered.html()).toBe(
-`<div>
-  <p>hello world</p>
-</div>`
-        );
+        expect(rendered.html()).toBe("<div><p>hello world</p></div>");
       });
     });
   });
@@ -391,8 +378,7 @@ describe("RichText", () => {
           ]
         }
       ]);
-
-      const rendered = mount(RichText, { propsData: { document }});
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <a> to example.com with underlined text 'go to example'", () => {
         expect(rendered.html()).toBe('<a href="https://example.com"><u>go to example</u></a>');
@@ -400,32 +386,10 @@ describe("RichText", () => {
     });
 
     describe("overrides", () => {
-      const nodeRenderers = {
-        [INLINES.EMBEDDED_ENTRY]: (node, key, h) => h('a', { key: key, attrs: { href: `/entry/${node.data.target.sys.id}` } }, 'go to'),
-        break: (_node, key, h) => h('br', key, {}),
-        [BLOCKS.PARAGRAPH]: (node, key, h, next) => {
-          const nodeContentWithNewlineBr = node.content.map(childNode => {
-            if (childNode.nodeType === 'text') {
-              const splittedValue = childNode.value.split("\n");
-              return splittedValue.reduce((aggregate, v, i) => (
-                [
-                  ...aggregate,
-                  { ...childNode, value: v },
-                  { nodeType: 'break', key: `${key}-br-${i}` }
-                ]
-              ), []).slice(0, -1);
-            }
-
-            return childNode;
-          });
-
-          node.content = [].concat.apply([], nodeContentWithNewlineBr);
-
-          return h('p', { key }, next(node.content, key, h, next));
-        }
-      };
-
       describe("EMBEDDED_ENTRY", () => {
+        const nodeRenderers = {
+          [INLINES.EMBEDDED_ENTRY]: (node, key) => h('a', { key: key, href: `/entry/${node.data.target.sys.id}` }, 'go to')
+        };
         const document = withDocument([
           {
             nodeType: INLINES.EMBEDDED_ENTRY,
@@ -440,8 +404,7 @@ describe("RichText", () => {
             }
           }
         ]);
-
-        const rendered = mount(RichText, { propsData: { document, nodeRenderers } });
+        const rendered = mount(RichText, { props: { document, nodeRenderers } });
 
         it("it has an <a> to the entry id", () => {
           expect(rendered.html()).toBe('<a href="/entry/9mpxT4zsRi6Iwukey8KeM">go to</a>');
@@ -449,6 +412,32 @@ describe("RichText", () => {
       });
 
       describe("newline to br", () => {
+        const nodeRenderers = {
+          break: (_node, key) => h('br', key),
+          [BLOCKS.PARAGRAPH]: (node, key, next) => {
+            const nodeContentWithNewlineBr = node.content.map(childNode => {
+              if (childNode.nodeType === 'text') {
+                const splittedValue = childNode.value.split("\n");
+                return splittedValue.reduce((aggregate, v, i) => (
+                  [
+                    ...aggregate,
+                    { ...childNode, value: v },
+                    { nodeType: 'break', key: `${key}-br-${i}` }
+                  ]
+                ), []).slice(0, -1);
+              }
+
+              return childNode;
+            });
+
+            const updatedNode = {
+              ...node,
+              content: [].concat.apply([], nodeContentWithNewlineBr)
+            }
+
+            return h('p', { key }, next(updatedNode.content, key, next));
+          }
+        };
         const document = withDocument([
           {
             nodeType: BLOCKS.PARAGRAPH,
@@ -462,7 +451,7 @@ describe("RichText", () => {
             ],
           },
         ]);
-        const rendered = mount(RichText, { propsData: { document, nodeRenderers } });
+        const rendered = mount(RichText, { props: { document, nodeRenderers } });
 
         it("splits hello world with breaks", () => {
           expect(rendered.html()).toBe('<p>hello<br><br>world</p>');

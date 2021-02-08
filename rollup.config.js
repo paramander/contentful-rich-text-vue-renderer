@@ -1,7 +1,8 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import pkg from './package.json';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
+import replace from '@rollup/plugin-replace';
 
 export default [
   // browser-friendly UMD build
@@ -13,6 +14,9 @@ export default [
       format: 'umd',
     },
     plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }),
       resolve(),
       commonjs(),
       babel({
@@ -30,7 +34,7 @@ export default [
   {
     input: 'src/index.js',
     output: [
-      { file: pkg.main, format: 'cjs' },
+      { file: pkg.main, format: 'cjs', exports: 'default' },
       { file: pkg.module, format: 'es' },
     ],
     plugins: [

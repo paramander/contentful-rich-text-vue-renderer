@@ -1,6 +1,14 @@
 import { BLOCKS, MARKS, INLINES, helpers } from "@contentful/rich-text-types";
 
-const defaultInline = (type, node, key, h) => {
+let vueInstance;
+if (typeof Vue === 'undefined') {
+    vueInstance = require('vue');
+} else {
+    vueInstance = Vue;
+}
+const { h, readonly } = vueInstance;
+
+const defaultInline = (type, node, key) => {
     return h(
         'span',
         {
@@ -17,69 +25,67 @@ const defaultInline = (type, node, key, h) => {
 };
 
 const defaultMarkRenderers = {
-    [MARKS.BOLD]: (children, key, h) => h('strong', { key }, children),
-    [MARKS.ITALIC]: (children, key, h) => h('em', { key }, children),
-    [MARKS.UNDERLINE]: (children, key, h) => h('u', { key }, children),
-    [MARKS.CODE]: (children, key, h) => h('code', { key }, children)
+    [MARKS.BOLD]: (children, key) => h('strong', { key }, children),
+    [MARKS.ITALIC]: (children, key) => h('em', { key }, children),
+    [MARKS.UNDERLINE]: (children, key) => h('u', { key }, children),
+    [MARKS.CODE]: (children, key) => h('code', { key }, children)
 };
 
 const defaultNodeRenderers = {
-    [BLOCKS.PARAGRAPH]: (node, key, h, next) => (
-        h('p', { key }, next(node.content, key, h, next))
+    [BLOCKS.PARAGRAPH]: (node, key, next) => (
+        h('p', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_1]: (node, key, h, next) => (
-        h('h1', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_1]: (node, key, next) => (
+        h('h1', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_2]: (node, key, h, next) => (
-        h('h2', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_2]: (node, key, next) => (
+        h('h2', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_3]: (node, key, h, next) => (
-        h('h3', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_3]: (node, key, next) => (
+        h('h3', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_4]: (node, key, h, next) => (
-        h('h4', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_4]: (node, key, next) => (
+        h('h4', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_5]: (node, key, h, next) => (
-        h('h5', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_5]: (node, key, next) => (
+        h('h5', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HEADING_6]: (node, key, h, next) => (
-        h('h6', { key }, next(node.content, key, h, next))
+    [BLOCKS.HEADING_6]: (node, key, next) => (
+        h('h6', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.EMBEDDED_ENTRY]: (node, key, h, next) => (
-        h('div', { key }, next(node.content, key, h, next))
+    [BLOCKS.EMBEDDED_ENTRY]: (node, key, next) => (
+        h('div', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.UL_LIST]: (node, key, h, next) => (
-        h('ul', { key }, next(node.content, key, h, next))
+    [BLOCKS.UL_LIST]: (node, key, next) => (
+        h('ul', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.OL_LIST]: (node, key, h, next) => (
-        h('ol', { key }, next(node.content, key, h, next))
+    [BLOCKS.OL_LIST]: (node, key, next) => (
+        h('ol', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.LIST_ITEM]: (node, key, h, next) => (
-        h('li', { key }, next(node.content, key, h, next))
+    [BLOCKS.LIST_ITEM]: (node, key, next) => (
+        h('li', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.QUOTE]: (node, key, h, next) => (
-        h('blockquote', { key }, next(node.content, key, h, next))
+    [BLOCKS.QUOTE]: (node, key, next) => (
+        h('blockquote', { key }, next(node.content, key, next))
     ),
-    [BLOCKS.HR]: (_node, key, h) => h('hr', { key }, {}),
-    [INLINES.ASSET_HYPERLINK]: (node, key, h) =>
-        defaultInline(INLINES.ASSET_HYPERLINK, node, key, h),
-    [INLINES.ENTRY_HYPERLINK]: (node, key, h) =>
-        defaultInline(INLINES.ENTRY_HYPERLINK, node, key, h),
-    [INLINES.EMBEDDED_ENTRY]: (node, key, h) =>
-        defaultInline(INLINES.EMBEDDED_ENTRY, node, key, h),
-    [INLINES.HYPERLINK]: (node, key, h, next) => {
+    [BLOCKS.HR]: (_node, key) => h('hr', { key }),
+    [INLINES.ASSET_HYPERLINK]: (node, key) =>
+        defaultInline(INLINES.ASSET_HYPERLINK, node, key),
+    [INLINES.ENTRY_HYPERLINK]: (node, key) =>
+        defaultInline(INLINES.ENTRY_HYPERLINK, node, key),
+    [INLINES.EMBEDDED_ENTRY]: (node, key) =>
+        defaultInline(INLINES.EMBEDDED_ENTRY, node, key),
+    [INLINES.HYPERLINK]: (node, key, next) => {
         return h(
             'a',
             {
                 key,
-                attrs: {
-                  href: node.data.uri
-                }
+                href: node.data.uri
             },
-            next(node.content, key, h, next)
+            next(node.content, key, next)
         )
     },
-    text: ({ marks, value }, key, h, markRenderer) => {
+    text: ({ marks, value }, key, markRenderer) => {
         if (!marks.length) {
             return value;
         }
@@ -97,43 +103,40 @@ const renderNodeList = (nodes, key, renderer) => {
 
 const renderNode = (node, key, renderer) => {
     const nodeRenderer = renderer.node;
-    const createElement = renderer.createElement;
 
     if (helpers.isText(node)) {
         // We're at final tip of node branch, can render text.
         const markerRender = renderer.mark;
-        return nodeRenderer.text(node, key, createElement, markerRender);
+        return nodeRenderer.text(node, key, markerRender);
     } else {
         const nextNode = nodes => renderNodeList(nodes, key, renderer);
         if (!nodeRenderer) {
-            return createElement('div', `${key} ;lost nodeRenderer`);
+            return h('div', { key }, `${key} ;lost nodeRenderer`);
         }
         if (!node.nodeType || !nodeRenderer[node.nodeType]) {
             // TODO: Figure what to return when passed an unrecognized node.
-            return "(Unrecognized node type) " + (node.nodeType || "empty");
+            return h('div', { key }, "(Unrecognized node type) " + (node.nodeType || "empty"));
         }
-        return nodeRenderer[node.nodeType](node, key, createElement, nextNode);
+        return nodeRenderer[node.nodeType](node, key, nextNode);
     }
 };
 
-export default {
-    functional: true,
+const RichText = ({ nodeRenderers, markRenderers, document }) => {
+    const richtextDocument = readonly(document);
+    const renderer = {
+        node: {
+            ...defaultNodeRenderers,
+            ...nodeRenderers
+        },
+        mark: {
+            ...defaultMarkRenderers,
+            ...markRenderers
+        }
+    };
 
-    props: ["document", "nodeRenderers", "markRenderers"],
-
-    render(h, ctx) {
-        const renderer = {
-            node: {
-                ...defaultNodeRenderers,
-                ...ctx.props.nodeRenderers
-            },
-            mark: {
-                ...defaultMarkRenderers,
-                ...ctx.props.markRenderers
-            },
-            createElement: h
-        };
-
-        return renderNodeList(ctx.props.document.content, "RichText-", renderer);
-    }
+    return renderNodeList(richtextDocument.content, "RichText-", renderer)
 };
+
+RichText.props = ["document", "nodeRenderers", "markRenderers"];
+
+export default RichText;
