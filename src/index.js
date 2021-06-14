@@ -6,7 +6,7 @@ if (typeof Vue === 'undefined') {
 } else {
     vueInstance = Vue;
 }
-const { h, readonly } = vueInstance;
+const { h } = vueInstance;
 
 const defaultInline = (type, node, key) => {
     return h(
@@ -122,7 +122,11 @@ const renderNode = (node, key, renderer) => {
 };
 
 const RichText = ({ nodeRenderers, markRenderers, document }) => {
-    const richtextDocument = readonly(document);
+    if (!document) {
+        console.warn("No document given to RichText renderer");
+        return [];
+    }
+
     const renderer = {
         node: {
             ...defaultNodeRenderers,
@@ -134,7 +138,7 @@ const RichText = ({ nodeRenderers, markRenderers, document }) => {
         }
     };
 
-    return renderNodeList(richtextDocument.content, "RichText-", renderer)
+    return renderNodeList(document.content, "RichText-", renderer);
 };
 
 RichText.props = ["document", "nodeRenderers", "markRenderers"];
