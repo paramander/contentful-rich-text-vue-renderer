@@ -104,6 +104,7 @@ You can also pass custom renderers for both marks and nodes as an optional param
 
 ```html
 <script>
+import { h } from "vue";
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
@@ -138,12 +139,12 @@ export default {
   methods: {
     renderMarks() {
       return {
-        [MARKS.BOLD]: (text, key, h) => h('custom-bold', { key: key }, text)
+        [MARKS.BOLD]: (text, key) => h('custom-bold', { key }, text)
       };
     },
     renderNodes() {
       return {
-        [BLOCKS.PARAGRAPH]: (node, key, h, next) => h('custom-paragraph', { key: key }, next(node.content, key, h, next))
+        [BLOCKS.PARAGRAPH]: (node, key, next) => h('custom-paragraph', { key }, next(node.content, key, next))
       }
     };
   }
@@ -160,6 +161,7 @@ Last, but not least, you can pass a custom rendering component for an embedded e
 
 ```html
 <script>
+import { h } from "vue";
 import { BLOCKS } from '@contentful/rich-text-types';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 
@@ -177,8 +179,8 @@ const document = {
 
 // Example function to render an embedded entry in a RichText editor.
 // For instance, a react-router link to an entry.
-const customEmbeddedEntry = (node, key, h) => {
-  return h('Link', { key: key, to: 'link to embedded entry' }, 'content for the <Link> component');
+const customEmbeddedEntry = (node, key) => {
+  return h('Link', { key, to: 'link to embedded entry' }, 'content for the <Link> component');
 };
 
 export default {
