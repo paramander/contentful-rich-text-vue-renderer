@@ -1,6 +1,6 @@
 {
   "name": "contentful-rich-text-vue-renderer",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0-rc.3",
   "description": "Render Contentful Rich Text field using Vue components",
   "homepage": "https://github.com/paramander/contentful-rich-text-vue-renderer#readme",
   "repository": {
