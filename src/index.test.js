@@ -419,9 +419,9 @@ describe("RichText", () => {
             return childNode;
           });
 
-          node.content = [].concat.apply([], nodeContentWithNewlineBr);
+          const content = [].concat.apply([], nodeContentWithNewlineBr);
 
-          return h('p', { key }, next(node.content, key, h, next));
+          return h('p', { key }, next(content, key, h, next));
         }
       };
 
