@@ -216,6 +216,7 @@ The `nodeRenderers` prop should be one of the following `BLOCKS` and `INLINES` p
   - `HR`
   - `EMBEDDED_ENTRY`
   - `EMBEDDED_ASSET`
+  - `TABLE`
 
 - `INLINES`
   - `EMBEDDED_ENTRY` (this is different from the `BLOCKS.EMBEDDED_ENTRY`)
