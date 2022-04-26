@@ -29,7 +29,7 @@
     "vue"
   ],
   "dependencies": {
-    "@contentful/rich-text-types": "^14.1.2"
+    "@contentful/rich-text-types": "^15.12.1"
   },
   "author": "Paramander",
   "license": "MIT",
