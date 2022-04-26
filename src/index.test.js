@@ -372,6 +372,244 @@ describe("RichText", () => {
         );
       });
     });
+
+    describe("TABLE", () => {
+      it("renders tables", () => {
+        const document = withDocument([
+          {
+            nodeType: BLOCKS.TABLE,
+            data: {},
+            content: [
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'A 1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'B 1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'A 2',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'B 2',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          }
+        ]);
+    
+        const rendered = mount(RichText, { propsData: { document } });
+    
+        expect(rendered.html()).toBe(
+`<table>
+  <tr>
+    <td>
+      <p>A 1</p>
+    </td>
+    <td>
+      <p>B 1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>A 2</p>
+    </td>
+    <td>
+      <p>B 2</p>
+    </td>
+  </tr>
+</table>`
+        );
+      });
+    
+      it("renders tables with header", () => {
+        const document = withDocument([
+          {
+            nodeType: BLOCKS.TABLE,
+            data: {},
+            content: [
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_HEADER_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'A 1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_HEADER_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'B 1',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'A 2',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: 'text',
+                            data: {},
+                            marks: [],
+                            value: 'B 2',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ]
+          }
+        ]);
+    
+        const rendered = mount(RichText, { propsData: { document } })
+    
+        expect(rendered.html()).toBe(
+`<table>
+  <tr>
+    <th>
+      <p>A 1</p>
+    </th>
+    <th>
+      <p>B 1</p>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <p>A 2</p>
+    </td>
+    <td>
+      <p>B 2</p>
+    </td>
+  </tr>
+</table>`
+        );
+      });
+    });
   });
 
   describe("INLINES", () => {

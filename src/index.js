@@ -60,6 +60,18 @@ const defaultNodeRenderers = {
     [BLOCKS.QUOTE]: (node, key, h, next) => (
         h('blockquote', { key }, next(node.content, key, h, next))
     ),
+    [BLOCKS.TABLE]: (node, key, h, next) => (
+        h('table', { key }, next(node.content, key, h, next))
+    ),
+    [BLOCKS.TABLE_ROW]: (node, key, h, next) => (
+        h('tr', { key }, next(node.content, key, h, next))
+    ),
+    [BLOCKS.TABLE_CELL]: (node, key, h, next) => (
+        h('td', { key }, next(node.content, key, h, next))
+    ),
+    [BLOCKS.TABLE_HEADER_CELL]: (node, key, h, next) => (
+        h('th', { key }, next(node.content, key, h, next))
+    ),
     [BLOCKS.HR]: (_node, key, h) => h('hr', { key }, {}),
     [INLINES.ASSET_HYPERLINK]: (node, key, h) =>
         defaultInline(INLINES.ASSET_HYPERLINK, node, key, h),
