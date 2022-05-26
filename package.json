@@ -28,21 +28,22 @@
     "text",
     "vue"
   ],
-  "dependencies": {
-    "@contentful/rich-text-types": "^15.12.1"
+  "peerDependencies": {
+    "@contentful/rich-text-types": "*"
   },
   "author": "Paramander",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "@contentful/rich-text-types": "^15.12.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@vue/test-utils": "^1.1.2",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
-    "rollup": "^2.38.0",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup": "^2.73.0",
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
   }
