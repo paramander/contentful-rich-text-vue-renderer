@@ -4,13 +4,13 @@ import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 
 import RichText from "../src/index.js";
 
-const withDocument = content => {
+const withDocument = (content) => {
   return {
-    nodeType: 'document',
+    nodeType: "document",
     data: {},
-    content: content
+    content: content,
   };
-}
+};
 
 describe("RichText", () => {
   describe("MARKS", () => {
@@ -20,27 +20,27 @@ describe("RichText", () => {
           nodeType: BLOCKS.PARAGRAPH,
           content: [
             {
-              nodeType: 'text',
-              value: 'Hello',
+              nodeType: "text",
+              value: "Hello",
               marks: [{ type: MARKS.BOLD }],
             },
             {
-              nodeType: 'text',
-              value: ' world!',
+              nodeType: "text",
+              value: " world!",
               marks: [{ type: MARKS.ITALIC }],
             },
             {
-              nodeType: 'text',
+              nodeType: "text",
               value: 'console.log("yo");',
               marks: [{ type: MARKS.CODE }],
             },
             {
-              nodeType: 'text',
-              value: 'Greetings!',
+              nodeType: "text",
+              value: "Greetings!",
               marks: [{ type: MARKS.UNDERLINE }],
-            }
+            },
           ],
-        }
+        },
       ]);
       const rendered = mount(RichText, { props: { document } });
 
@@ -54,17 +54,19 @@ describe("RichText", () => {
     describe("overlapping marks", () => {
       const document = withDocument([
         {
-          nodeType: 'text',
-          value: 'Hello',
-          marks: [{ type: MARKS.BOLD }, { type: MARKS.ITALIC }, { type: MARKS.UNDERLINE }],
-        }
+          nodeType: "text",
+          value: "Hello",
+          marks: [
+            { type: MARKS.BOLD },
+            { type: MARKS.ITALIC },
+            { type: MARKS.UNDERLINE },
+          ],
+        },
       ]);
       const rendered = mount(RichText, { props: { document } });
 
       it("renders all overlapping marks in order", () => {
-        expect(rendered.html()).toBe(
-          '<strong><em><u>Hello</u></em></strong>'
-        );
+        expect(rendered.html()).toBe("<strong><em><u>Hello</u></em></strong>");
       });
     });
   });
@@ -76,8 +78,8 @@ describe("RichText", () => {
           nodeType: BLOCKS.PARAGRAPH,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
+              nodeType: "text",
+              value: "hello world",
               marks: [],
               data: {},
             },
@@ -87,7 +89,7 @@ describe("RichText", () => {
       const rendered = mount(RichText, { props: { document } });
 
       it("has a <p> with hello world", () => {
-        expect(rendered.html()).toBe('<p>hello world</p>');
+        expect(rendered.html()).toBe("<p>hello world</p>");
       });
     });
 
@@ -97,17 +99,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_1,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h1> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h1>hello world</h1>');
+        expect(rendered.html()).toBe("<h1>hello world</h1>");
       });
     });
 
@@ -117,17 +119,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_2,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h2> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h2>hello world</h2>');
+        expect(rendered.html()).toBe("<h2>hello world</h2>");
       });
     });
 
@@ -137,17 +139,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_3,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h3> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h3>hello world</h3>');
+        expect(rendered.html()).toBe("<h3>hello world</h3>");
       });
     });
 
@@ -157,17 +159,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_4,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h4> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h4>hello world</h4>');
+        expect(rendered.html()).toBe("<h4>hello world</h4>");
       });
     });
 
@@ -177,17 +179,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_5,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h5> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h5>hello world</h5>');
+        expect(rendered.html()).toBe("<h5>hello world</h5>");
       });
     });
 
@@ -197,17 +199,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.HEADING_6,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <h6> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<h6>hello world</h6>');
+        expect(rendered.html()).toBe("<h6>hello world</h6>");
       });
     });
 
@@ -217,17 +219,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.LIST_ITEM,
           content: [
             {
-              nodeType: 'text',
-              value: 'hello world',
-              marks: []
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "hello world",
+              marks: [],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <li> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<li>hello world</li>');
+        expect(rendered.html()).toBe("<li>hello world</li>");
       });
     });
 
@@ -239,9 +241,9 @@ describe("RichText", () => {
             {
               content: [
                 {
-                  value: 'hello',
-                  nodeType: 'text',
-                  marks: []
+                  value: "hello",
+                  nodeType: "text",
+                  marks: [],
                 },
               ],
               nodeType: BLOCKS.LIST_ITEM,
@@ -249,20 +251,22 @@ describe("RichText", () => {
             {
               content: [
                 {
-                  value: 'world',
-                  nodeType: 'text',
-                  marks: []
+                  value: "world",
+                  nodeType: "text",
+                  marks: [],
                 },
               ],
               nodeType: BLOCKS.LIST_ITEM,
             },
           ],
-        }
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <ul> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe("<ul>\n  <li>hello</li>\n  <li>world</li>\n</ul>");
+        expect(rendered.html()).toBe(
+          "<ul>\n  <li>hello</li>\n  <li>world</li>\n</ul>"
+        );
       });
     });
 
@@ -274,9 +278,9 @@ describe("RichText", () => {
             {
               content: [
                 {
-                  value: 'hello',
-                  nodeType: 'text',
-                  marks: []
+                  value: "hello",
+                  nodeType: "text",
+                  marks: [],
                 },
               ],
               nodeType: BLOCKS.LIST_ITEM,
@@ -284,20 +288,22 @@ describe("RichText", () => {
             {
               content: [
                 {
-                  value: 'world',
-                  nodeType: 'text',
-                  marks: []
+                  value: "world",
+                  nodeType: "text",
+                  marks: [],
                 },
               ],
               nodeType: BLOCKS.LIST_ITEM,
             },
           ],
-        }
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <ol> with two list items containing 'hello' and 'world'", () => {
-        expect(rendered.html()).toBe("<ol>\n  <li>hello</li>\n  <li>world</li>\n</ol>");
+        expect(rendered.html()).toBe(
+          "<ol>\n  <li>hello</li>\n  <li>world</li>\n</ol>"
+        );
       });
     });
 
@@ -305,13 +311,13 @@ describe("RichText", () => {
       const document = withDocument([
         {
           nodeType: BLOCKS.HR,
-          content: []
-        }
+          content: [],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has an <hr>", () => {
-        expect(rendered.html()).toBe('<hr>');
+        expect(rendered.html()).toBe("<hr>");
       });
     });
 
@@ -321,17 +327,17 @@ describe("RichText", () => {
           nodeType: BLOCKS.QUOTE,
           content: [
             {
-              value: 'hello world',
-              nodeType: 'text',
-              marks: []
+              value: "hello world",
+              nodeType: "text",
+              marks: [],
             },
-          ]
-        }
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has a <blockquote> with 'hello world'", () => {
-        expect(rendered.html()).toBe('<blockquote>hello world</blockquote>');
+        expect(rendered.html()).toBe("<blockquote>hello world</blockquote>");
       });
     });
 
@@ -344,19 +350,257 @@ describe("RichText", () => {
               nodeType: BLOCKS.PARAGRAPH,
               content: [
                 {
-                  value: 'hello world',
-                  nodeType: 'text',
-                  marks: []
+                  value: "hello world",
+                  nodeType: "text",
+                  marks: [],
                 },
-              ]
-            }
-          ]
-        }
+              ],
+            },
+          ],
+        },
       ]);
-      const rendered = mount(RichText, { props: { document } })
+      const rendered = mount(RichText, { props: { document } });
 
       it("has a <div> with <p> with 'hello world'", () => {
         expect(rendered.html()).toBe("<div>\n  <p>hello world</p>\n</div>");
+      });
+    });
+
+    describe("TABLE", () => {
+      it("renders tables", () => {
+        const document = withDocument([
+          {
+            nodeType: BLOCKS.TABLE,
+            data: {},
+            content: [
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "A 1",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "B 1",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "A 2",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "B 2",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ]);
+
+        const rendered = mount(RichText, { propsData: { document } });
+
+        expect(rendered.html()).toBe(
+          `<table>
+  <tr>
+    <td>
+      <p>A 1</p>
+    </td>
+    <td>
+      <p>B 1</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>A 2</p>
+    </td>
+    <td>
+      <p>B 2</p>
+    </td>
+  </tr>
+</table>`
+        );
+      });
+
+      it("renders tables with header", () => {
+        const document = withDocument([
+          {
+            nodeType: BLOCKS.TABLE,
+            data: {},
+            content: [
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_HEADER_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "A 1",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_HEADER_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "B 1",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                nodeType: BLOCKS.TABLE_ROW,
+                data: {},
+                content: [
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "A 2",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    nodeType: BLOCKS.TABLE_CELL,
+                    data: {},
+                    content: [
+                      {
+                        nodeType: BLOCKS.PARAGRAPH,
+                        data: {},
+                        content: [
+                          {
+                            nodeType: "text",
+                            data: {},
+                            marks: [],
+                            value: "B 2",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ]);
+
+        const rendered = mount(RichText, { propsData: { document } });
+
+        expect(rendered.html()).toBe(
+          `<table>
+  <tr>
+    <th>
+      <p>A 1</p>
+    </th>
+    <th>
+      <p>B 1</p>
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <p>A 2</p>
+    </td>
+    <td>
+      <p>B 2</p>
+    </td>
+  </tr>
+</table>`
+        );
       });
     });
   });
@@ -367,28 +611,35 @@ describe("RichText", () => {
         {
           nodeType: INLINES.HYPERLINK,
           data: {
-            uri: "https://example.com"
+            uri: "https://example.com",
           },
           content: [
             {
-              nodeType: 'text',
-              value: 'go to example',
-              marks: [{ type: MARKS.UNDERLINE }]
-            }
-          ]
-        }
+              nodeType: "text",
+              value: "go to example",
+              marks: [{ type: MARKS.UNDERLINE }],
+            },
+          ],
+        },
       ]);
       const rendered = mount(RichText, { props: { document } });
 
       it("has an <a> to example.com with underlined text 'go to example'", () => {
-        expect(rendered.html()).toBe('<a href="https://example.com"><u>go to example</u></a>');
+        expect(rendered.html()).toBe(
+          '<a href="https://example.com"><u>go to example</u></a>'
+        );
       });
     });
 
     describe("overrides", () => {
       describe("EMBEDDED_ENTRY", () => {
         const nodeRenderers = {
-          [INLINES.EMBEDDED_ENTRY]: (node, key) => h('a', { key: key, href: `/entry/${node.data.target.sys.id}` }, 'go to')
+          [INLINES.EMBEDDED_ENTRY]: (node, key) =>
+            h(
+              "a",
+              { key: key, href: `/entry/${node.data.target.sys.id}` },
+              "go to"
+            ),
         };
         const document = withDocument([
           {
@@ -396,35 +647,42 @@ describe("RichText", () => {
             data: {
               target: {
                 sys: {
-                  id: '9mpxT4zsRi6Iwukey8KeM',
-                  link: 'Link',
-                  linkType: 'Entry',
+                  id: "9mpxT4zsRi6Iwukey8KeM",
+                  link: "Link",
+                  linkType: "Entry",
                 },
-              }
-            }
-          }
+              },
+            },
+          },
         ]);
-        const rendered = mount(RichText, { props: { document, nodeRenderers } });
+        const rendered = mount(RichText, {
+          props: { document, nodeRenderers },
+        });
 
         it("it has an <a> to the entry id", () => {
-          expect(rendered.html()).toBe('<a href="/entry/9mpxT4zsRi6Iwukey8KeM">go to</a>');
+          expect(rendered.html()).toBe(
+            '<a href="/entry/9mpxT4zsRi6Iwukey8KeM">go to</a>'
+          );
         });
       });
 
       describe("newline to br", () => {
         const nodeRenderers = {
-          break: (_node, key) => h('br', key),
+          break: (_node, key) => h("br", key),
           [BLOCKS.PARAGRAPH]: (node, key, next) => {
-            const nodeContentWithNewlineBr = node.content.map(childNode => {
-              if (childNode.nodeType === 'text') {
+            const nodeContentWithNewlineBr = node.content.map((childNode) => {
+              if (childNode.nodeType === "text") {
                 const splittedValue = childNode.value.split("\n");
-                return splittedValue.reduce((aggregate, v, i) => (
-                  [
-                    ...aggregate,
-                    { ...childNode, value: v },
-                    { nodeType: 'break', key: `${key}-br-${i}` }
-                  ]
-                ), []).slice(0, -1);
+                return splittedValue
+                  .reduce(
+                    (aggregate, v, i) => [
+                      ...aggregate,
+                      { ...childNode, value: v },
+                      { nodeType: "break", key: `${key}-br-${i}` },
+                    ],
+                    []
+                  )
+                  .slice(0, -1);
               }
 
               return childNode;
@@ -432,18 +690,18 @@ describe("RichText", () => {
 
             const updatedNode = {
               ...node,
-              content: [].concat.apply([], nodeContentWithNewlineBr)
-            }
+              content: [].concat.apply([], nodeContentWithNewlineBr),
+            };
 
-            return h('p', { key }, next(updatedNode.content, key, next));
-          }
+            return h("p", { key }, next(updatedNode.content, key, next));
+          },
         };
         const document = withDocument([
           {
             nodeType: BLOCKS.PARAGRAPH,
             content: [
               {
-                nodeType: 'text',
+                nodeType: "text",
                 value: "hello\n\nworld",
                 marks: [],
                 data: {},
@@ -451,12 +709,14 @@ describe("RichText", () => {
             ],
           },
         ]);
-        const rendered = mount(RichText, { props: { document, nodeRenderers } });
+        const rendered = mount(RichText, {
+          props: { document, nodeRenderers },
+        });
 
         it("splits hello world with breaks", () => {
-          expect(rendered.html()).toBe('<p>hello<br><br>world</p>');
+          expect(rendered.html()).toBe("<p>hello<br><br>world</p>");
         });
-      })
+      });
     });
   });
 });
