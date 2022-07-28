@@ -1,12 +1,5 @@
 import { BLOCKS, MARKS, INLINES, helpers } from "@contentful/rich-text-types";
-
-let vueInstance;
-if (typeof Vue === "undefined") {
-  vueInstance = require("vue");
-} else {
-  vueInstance = Vue;
-}
-const { h } = vueInstance;
+import { h } from "vue";
 
 const defaultInline = (type, node, key) => {
   return h(
