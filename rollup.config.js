@@ -1,6 +1,7 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { babel } from "@rollup/plugin-babel";
 import common from "@rollup/plugin-commonjs";
+import alias from "@rollup/plugin-alias";
 import pkg from "./package.json";
 
 export default [
@@ -15,6 +16,9 @@ export default [
       },
     ],
     plugins: [
+      alias({
+        entries: [{ find: "vue", replacement: "./vue-browser-shim" }],
+      }),
       nodeResolve({
         browser: true,
       }),
@@ -27,7 +31,7 @@ export default [
   },
 
   {
-    external: ["@contentful/rich-text-types"],
+    external: ["@contentful/rich-text-types", "vue"],
     input: "src/index.js",
     output: [
       {
