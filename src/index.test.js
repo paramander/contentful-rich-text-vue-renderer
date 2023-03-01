@@ -39,6 +39,16 @@ describe("RichText", () => {
               value: "Greetings!",
               marks: [{ type: MARKS.UNDERLINE }],
             },
+            {
+              nodeType: "text",
+              value: "Superb!",
+              marks: [{ type: MARKS.SUPERSCRIPT }],
+            },
+            {
+              nodeType: "text",
+              value: "Subpar",
+              marks: [{ type: MARKS.SUBSCRIPT }],
+            },
           ],
         },
       ]);
@@ -60,6 +70,17 @@ describe("RichText", () => {
             { type: MARKS.BOLD },
             { type: MARKS.ITALIC },
             { type: MARKS.UNDERLINE },
+            { type: MARKS.SUPERSCRIPT },
+          ],
+        },
+        {
+          nodeType: "text",
+          value: "World",
+          marks: [
+            { type: MARKS.BOLD },
+            { type: MARKS.ITALIC },
+            { type: MARKS.UNDERLINE },
+            { type: MARKS.SUBSCRIPT },
           ],
         },
       ]);
