@@ -66,6 +66,8 @@ const defaultNodeRenderers = {
     defaultInline(INLINES.ENTRY_HYPERLINK, node, key),
   [INLINES.EMBEDDED_ENTRY]: (node, key) =>
     defaultInline(INLINES.EMBEDDED_ENTRY, node, key),
+  [BLOCKS.EMBEDDED_ASSET]: (node, key, next) =>
+    h("img", { key, data: node.fields }, next(node.content, key, next)),
   [INLINES.HYPERLINK]: (node, key, next) => {
     return h(
       "a",
