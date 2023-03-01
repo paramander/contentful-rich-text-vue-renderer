@@ -236,3 +236,5 @@ The `markRenderers` prop should be one of the following `MARKS` properties as de
 - `ITALIC`
 - `UNDERLINE`
 - `CODE`
+- `SUBSCRIPT`
+- `SUPERSCRIPT`

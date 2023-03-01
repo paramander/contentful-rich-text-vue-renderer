@@ -39,6 +39,16 @@ describe("RichText", () => {
               value: "Greetings!",
               marks: [{ type: MARKS.UNDERLINE }],
             },
+            {
+              nodeType: "text",
+              value: "Superb!",
+              marks: [{ type: MARKS.SUPERSCRIPT }],
+            },
+            {
+              nodeType: "text",
+              value: "Subpar",
+              marks: [{ type: MARKS.SUBSCRIPT }],
+            },
           ],
         },
       ]);
@@ -46,7 +56,7 @@ describe("RichText", () => {
 
       it("renders them all in a single paragraph", () => {
         expect(rendered.html()).toBe(
-          '<p><strong>Hello</strong><em> world!</em><code>console.log("yo");</code><u>Greetings!</u></p>'
+          '<p><strong>Hello</strong><em> world!</em><code>console.log("yo");</code><u>Greetings!</u><sup>Superb!</sup><sub>Subpar</sub></p>'
         );
       });
     });
@@ -60,13 +70,24 @@ describe("RichText", () => {
             { type: MARKS.BOLD },
             { type: MARKS.ITALIC },
             { type: MARKS.UNDERLINE },
+            { type: MARKS.SUPERSCRIPT },
+          ],
+        },
+        {
+          nodeType: "text",
+          value: "World",
+          marks: [
+            { type: MARKS.BOLD },
+            { type: MARKS.ITALIC },
+            { type: MARKS.UNDERLINE },
+            { type: MARKS.SUBSCRIPT },
           ],
         },
       ]);
       const rendered = mount(RichText, { props: { document } });
 
       it("renders all overlapping marks in order", () => {
-        expect(rendered.html()).toBe("<strong><em><u>Hello</u></em></strong>");
+        expect(rendered.html()).toBe("<strong><em><u><sup>Hello</sup></u></em></strong>\n<strong><em><u><sub>World</sub></u></em></strong>");
       });
     });
   });

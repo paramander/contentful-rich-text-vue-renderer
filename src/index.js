@@ -22,6 +22,8 @@ const defaultMarkRenderers = {
   [MARKS.ITALIC]: (children, key) => h("em", { key }, children),
   [MARKS.UNDERLINE]: (children, key) => h("u", { key }, children),
   [MARKS.CODE]: (children, key) => h("code", { key }, children),
+  [MARKS.SUPERSCRIPT]: (children, key) => h("sup", { key }, children),
+  [MARKS.SUBSCRIPT]: (children, key) => h("sub", { key }, children),
 };
 
 const defaultNodeRenderers = {
