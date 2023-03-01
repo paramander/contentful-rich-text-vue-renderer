@@ -66,8 +66,25 @@ const defaultNodeRenderers = {
     defaultInline(INLINES.ENTRY_HYPERLINK, node, key),
   [INLINES.EMBEDDED_ENTRY]: (node, key) =>
     defaultInline(INLINES.EMBEDDED_ENTRY, node, key),
-  [BLOCKS.EMBEDDED_ASSET]: (node, key, next) =>
-    h("img", { key, data: node.fields }, next(node.content, key, next)),
+  [BLOCKS.EMBEDDED_ASSET]: (node, key, next) => {
+    const attrs = {
+      title: node.data.target.fields.title,
+      description: node.data.target.fields.description,
+      url: node.data.target.fields.file.url,
+      fileName: node.data.target.fields.file.fileName,
+      contentType: node.data.target.fields.file.contentType,
+    };
+
+    if (attrs.contentType.startsWith("image/")) {
+      return h("img", {
+        key,
+        src: attrs.url,
+        alt: attrs.title,
+        title: attrs.title,
+        name: attrs.fileName
+      }, next(node.content, key, next));
+    }
+  },
   [INLINES.HYPERLINK]: (node, key, next) => {
     return h(
       "a",
