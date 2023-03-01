@@ -30,14 +30,19 @@
     "vue"
   ],
   "peerDependencies": {
-    "@contentful/rich-text-types": "*"
+    "@contentful/rich-text-types": "^15.14.1"
+  },
+  "peerDependenciesMeta": {
+    "@contentful/rich-text-types": {
+      "optional": false
+    }
   },
   "author": "Paramander",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "@contentful/rich-text-types": "^16.0.2",
+    "@contentful/rich-text-types": "^15.14.1",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
