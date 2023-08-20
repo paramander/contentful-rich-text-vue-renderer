@@ -43,6 +43,8 @@ const defaultNodeRenderers = {
     h("h6", { key }, next(node.content, key, next)),
   [BLOCKS.EMBEDDED_ENTRY]: (node, key, next) =>
     h("div", { key }, next(node.content, key, next)),
+  [BLOCKS.EMBEDDED_ASSET]: (node, key, next) =>
+    h("img", { key, data: node.fields }, next(node.content, key, next)),
   [BLOCKS.UL_LIST]: (node, key, next) =>
     h("ul", { key }, next(node.content, key, next)),
   [BLOCKS.OL_LIST]: (node, key, next) =>
