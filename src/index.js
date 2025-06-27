@@ -24,6 +24,7 @@ const defaultMarkRenderers = {
   [MARKS.CODE]: (children, key) => h("code", { key }, children),
   [MARKS.SUPERSCRIPT]: (children, key) => h("sup", { key }, children),
   [MARKS.SUBSCRIPT]: (children, key) => h("sub", { key }, children),
+  [MARKS.STRIKETHROUGH]: (children, key) => h("s", { key }, children),
 };
 
 const defaultNodeRenderers = {
