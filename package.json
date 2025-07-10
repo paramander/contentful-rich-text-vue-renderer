@@ -30,7 +30,7 @@
     "vue"
   ],
   "peerDependencies": {
-    "@contentful/rich-text-types": "^15.14.1"
+    "@contentful/rich-text-types": "^16.5.0 || ^17.0.0"
   },
   "peerDependenciesMeta": {
     "@contentful/rich-text-types": {
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "@contentful/rich-text-types": "^15.14.1",
+    "@contentful/rich-text-types": "^17.0.1",
     "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",

@@ -223,6 +223,9 @@ The `nodeRenderers` prop should be one of the following `BLOCKS` and `INLINES` p
   - `EMBEDDED_ENTRY`
   - `EMBEDDED_ASSET`
   - `TABLE`
+  - `TABLE_ROW`
+  - `TABLE_CELL`
+  - `TABLE_HEADER_CELL`
 
 - `INLINES`
   - `EMBEDDED_ENTRY` (this is different from the `BLOCKS.EMBEDDED_ENTRY`)
@@ -238,3 +241,4 @@ The `markRenderers` prop should be one of the following `MARKS` properties as de
 - `CODE`
 - `SUBSCRIPT`
 - `SUPERSCRIPT`
+- `STRIKETHROUGH`
