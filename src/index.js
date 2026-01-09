@@ -139,6 +139,7 @@ const RichText = ({ nodeRenderers, markRenderers, document }) => {
   return renderNodeList(document.content, "RichText-", renderer);
 };
 
+RichText.inheritAttrs = false;
 RichText.props = ["document", "nodeRenderers", "markRenderers"];
 
 export default RichText;
