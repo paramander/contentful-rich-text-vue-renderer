@@ -757,4 +757,33 @@ describe("RichText", () => {
       });
     });
   });
+
+  describe("options", () => {
+    let consoleWarnMock;
+
+    beforeEach(() => {
+      consoleWarnMock = jest.spyOn(console, "warn").mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      consoleWarnMock.mockRestore();
+    });
+
+    it("does not emit extraneous non-props warning", () => {
+      mount(RichText, {
+        props: {
+          document: withDocument([]),
+        },
+        attrs: {
+          "data-v-3b868348": "",
+        },
+      });
+
+      expect(
+        consoleWarnMock.mock.calls.find(call => call.find(
+          message => message === "[Vue warn]: Extraneous non-props attributes (data-v-3b868348) were passed to component but could not be automatically inherited because component renders fragment or text root nodes.",
+        )),
+      ).toBe(undefined);
+    });
+  });
 });
